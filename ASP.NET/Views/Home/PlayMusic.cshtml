@@ -1,0 +1,190 @@
+﻿<head>
+    <title>js xm</title>
+    <script type="text/javascript" src="~/Scripts/xmlist.js"></script>
+    <script type="text/javascript" src="~/Scripts/xmeffects.js"></script>
+    <script type="text/javascript" src="~/Scripts/trackview.js"></script>
+
+    <script type="text/javascript" src="~/Scripts/shell.js"></script>
+
+    <script type="text/javascript" src="~/Scripts/xm.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="~/Scripts/jquery-easyui-1.7.0/themes/black/easyui.css">
+    <link rel="stylesheet" type="text/css" href="~/Scripts/jquery-easyui-1.7.0/themes/icon.css">
+    <script type="text/javascript" src="~/Scripts/jquery-easyui-1.7.0/jquery.min.js"></script> 
+    <script type="text/javascript" src="~/Scripts/jquery-easyui-1.7.0/jquery.easyui.min.js"></script> 
+
+    <style>
+        .centered {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #filelist a {
+            color: #fff;
+        }
+
+        .playercontainer {
+            background: #000;
+        }
+
+        .draghover {
+            background: #000;
+            opacity: 0.5;
+        }
+
+        .hscroll {
+            overflow: auto;
+            margin-bottom: 14px;
+        }
+
+            .hscroll::-webkit-scrollbar {
+                -webkit-appearance: none;
+            }
+
+                .hscroll::-webkit-scrollbar:horizontal {
+                    height: 11px;
+                }
+
+            .hscroll::-webkit-scrollbar-thumb {
+                border-radius: 2px;
+                border: 1px solid #93C3E9; /* should match background, can't be transparent */
+                background-color: #A0D4FD;
+            }
+
+            .hscroll::-webkit-scrollbar-track {
+                background-color: #333;
+                border-radius: 8px;
+            }
+
+         
+               .lsls a{
+                font-size: 15px;
+                color:chartreuse;
+            }
+
+
+    </style>
+</head>
+<body>
+    <div id="playercontainer" class="playercontainer" ondrop="XMPlayer.handleDrop(event)"
+         ondragover="XMPlayer.allowDrop(event)" ondragleave="XMPlayer.allowDrop(event)">
+        <div><canvas class="centered" id='title' width="640" height="22"></canvas></div>
+        <div class="hscroll">
+            <div><canvas class="centered" id='vu' width="224" height="64"></canvas></div>
+            <div><canvas class="centered" id='gfxpattern' width="640" height="200"></canvas></div>
+        </div>
+        <div id='instruments'></div>
+        <div>
+            <p style="text-align: center">
+                <button id="playpause" disabled="true" style="width: 100px; background: #ccc;">Play</button>
+                <button id="loadbutton" style="width: 100px; background: #ccc">Load</button>
+                <button id="palymxa" style="width: 100px; background: #ccc">播放</button>
+                <button id="test" style="width: 100px; background: #ccc">测试</button>
+            </p>
+        </div>
+        <div style="display: none" id='filelist'></div>
+    </div>
+    @*code: <a href="http://github.com/a1k0n/jsxm/">github.com/a1k0n/jsxm</a>*@
+
+    <div style="margin:20px 0;"></div>
+    <div class="easyui-panel" style="width:100%;max-width:400px;padding:30px 60px;">
+        <input class="easyui-searchbox" data-options="prompt:'Please Input Value',searcher:doSearch" style="width:100%">
+    </div>
+    <script>
+		function doSearch(value){
+			alert('You input: ' + value);
+		}
+
+
+		function showcontent(language) {
+		    //            创建一个标签，将标签添加到指定标签里面
+
+		    // $('#content').html(language + <a href="javascript:void(0)" onclick="showcontent('2000AD')">2000AD</a>);
+		    var tag = null;
+		    //var tag = "<p><input type='text'/></p> ";
+		    tag = "<a href='javascript:void(0)' onclick='showcontent('2000AD')'>2000AD</a>";
+		    document.getElementById('content').insertAdjacentHTML("beforeEnd", tag);
+
+		    //            四个参数beforeBegin、 afterBegin、beforeEnd、afterEnd
+		};
+
+		var test = document.getElementById("test");
+		test.onclick = function () {
+		   // debugger
+		    downloadXM("../Music/iCWT.xm");
+		    XMPlayer.play();
+		};
+
+		function downloadXM(uri) {
+		    var xmReq = new XMLHttpRequest();
+		    xmReq.open("GET", uri, true);
+		    xmReq.responseType = "arraybuffer";
+		    xmReq.onload = function (xmEvent) {
+		        var arrayBuffer = xmReq.response;
+		        if (arrayBuffer) {
+		            loadXMAndInit(arrayBuffer);
+		         //   debugger
+		        } else {
+		            console.log("unable to load", uri);
+		        }
+		    };
+		    xmReq.send(null);
+		}
+
+
+		function loadXMAndInit(xmdata) {
+		    if (!XMPlayer.load(xmdata)) {
+		        return;
+		    }
+		    XMView.init();
+		    var playbutton = document.getElementById("playpause");
+		    playbutton.innerHTML = 'Play';
+		    playbutton.onclick = function () {
+		        if (XMPlayer.playing) {
+		            XMPlayer.pause();
+		            playbutton.innerHTML = 'Play';
+		        } else {
+		            XMPlayer.play();
+		            playbutton.innerHTML = 'Pause';
+		        }
+		    };
+		    playbutton.disabled = false;
+
+		    return XMPlayer.xm;
+		}
+
+    </script>
+
+    
+
+
+    
+    <div class="easyui-layout" style="width:400px;height:200px;background:#84C1FF">
+        <div class="lsls" region="west" split="true" title="Crack组织" style="width:180px;">
+            @*<p style="padding:5px;margin:0;">团队列表</p>*@
+            <ul>
+                <li><a href="javascript:void(0)" onclick="showcontent('2000AD')">2000AD</a></li>
+                <li><a href="javascript:void(0)" onclick="showcontent('AAOCG')">AAOCG</a></li>
+                <li><a href="javascript:void(0)" onclick="showcontent('Ackerlight')">Ackerlight</a></li>
+                <li><a href="javascript:void(0)" onclick="showcontent('ACME')">ACME</a></li>
+            </ul>
+        </div>
+        <div id="content" region="center" title="作品" style="padding:5px;">
+        </div>
+    </div>
+
+
+
+
+
+@*<pre>
+todo:
+ - missing XM effects:
+   - E3x, E6x, E7x, E9x, EDx, EEx
+   - 7xy - tremolo
+   - Kxx, Lxx, Pxy, Txy
+ - render pattern with the wider fonts for fewer channels
+ - fix occasional rendering/audio hiccups when switching songs
+</pre>*@
+</body>

@@ -1,0 +1,42 @@
+﻿@model ASP.NET.Models.RegisterViewModel
+@*@{
+    ViewBag.Title = "注册";
+}*@
+<p class="add" style="font-size:30px;color:beige">注册</p> <br />
+
+@*<h2>@ViewBag.Title。</h2>*@
+
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <h4 style="color:greenyellow">创建新帐户。</h4>
+    <hr />
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="form-group" style="color:greenyellow">
+        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10" style="color:greenyellow">
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group" style="color:greenyellow">
+        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10" style="color:greenyellow">
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group" style="color:greenyellow">
+        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10" style="color:greenyellow">
+            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group" style="color:greenyellow">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-default" value="注册" />
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

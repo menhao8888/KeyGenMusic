@@ -1,0 +1,92 @@
+﻿@{
+    ViewBag.Title = "主页";
+}
+
+@*<div class="jumbotron">
+    <h1>ASP.NET</h1>
+    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
+    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+</div>*@
+
+<style>
+    .KeyGenMusic p{
+        font-size:15px;
+        font-weight:500;
+        color:orange;
+    }
+</style>
+
+<style>
+    .row p {
+        font-size: 16px;
+        color: darkgrey;
+    }
+</style>
+
+<div class="KeyGenMusic">
+    <div align="center">
+        @*<img src="@Url.Content("~/Content/images/KeyGenMusic2.png")" style="width: 100%; height: 100%; background-repeat: repeat;opacity:1.0;" />*@
+
+        <img src="@Url.Content("~/Content/images/KeyGenMusic.jpg")"style="max-width: 100%; height:auto; " />
+        @*<p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
+            <p><a href="http://asp.net" class="btn btn-primary btn-lg">GO>>></a></p>*@
+        <p class="lead"> 在这里你可以找到全球注册机音乐，来自世界各地的不同的 crack组织/破解小组。并且是完全免费的。从菜单中选择组并下载*.xm、*.s3m格式的音乐(模块音乐)。可以在这里进行下载，在这里要播放这些文件，您需要一个像XMPlay，MODPlug播放器，WinMAP，DeliPlayer等。</p>
+        <p class="lead">不过推荐使用Fasttracker II <a href="https://16-bits.org/ft2.php" target="_blank">https://16-bits.org/ft2.php</a> </p>
+    </div>
+</div>
+
+<div>
+    @ViewData["key"]
+
+<br>
+    @DateTime.Now.ToString()
+
+<br>
+    @for (int i = 0; i < 10; i++)
+    {
+        <p>@i</p>
+    }
+
+    @{ 
+        int g = 0;
+        g++;
+        g += 10;
+        <p>@g</p>
+    }
+
+    @{ 
+        string str2 = "123";
+
+        <p>@str2.IsInt()</p>
+        <br>
+        <p>@str2.AsInt()</p>
+    }
+
+
+
+</div>
+
+
+
+@*<div class="row">
+    <div class="col-md-4">
+        <h2>Getting started</h2>
+        <p>
+            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
+            enables a clean separation of concerns and gives you full control over markup
+            for enjoyable, agile development.
+        </p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Get more libraries</h2>
+        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Web Hosting</h2>
+        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+
+    </div>
+</div>*@
